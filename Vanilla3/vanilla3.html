@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla3 - Playing with css variables</title>
+</head>
+<body>
+    <h2>Update CSS Variable with <h1>JS</h1></h2>
+    <div class="controls">
+        <label for="spacing">Spacing:</label>
+        <input type="range" id="spacing" min="10" max="200" name="spacing" value="10" data-sizing="px">
+        <label for="blur">Blur:</label>
+        <input type="range" id="blur" min="0" max="20" name="blur" value="10" data-sizing="px">
+        <label for="base">Base:</label>
+        <input type="color" id="base" name="base" value="#ff1122">
+    </div>
+
+    <img src="/Vanilla3/background.jpg">
+
+    <style>
+        :root{
+            --base: #ff1122;
+            --spacing: 10px;
+            --blur: 10px;
+        }
+        img{
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+        }
+        h1{
+            color: var(--base);
+        }
+
+        body{
+            text-align: center;
+            background: #193549;
+            color: white;
+            font-family: monospace;
+            font-weight: 100;
+            font-size: 50px;
+        }
+
+        .controls{
+            margin-bottom: 50px;
+        }
+
+        input{
+            width: 100px;
+        }
+    </style>
+
+    <script>
+        const inputs = document.querySelectorAll('.controls input');
+
+        function handleControl(){
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+
+        inputs.forEach(input => input.addEventListener('change', handleControl));
+    </script>
+</body>
+</html>
